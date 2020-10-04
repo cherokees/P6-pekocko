@@ -22,9 +22,9 @@ router.get('/:id', auth, stuffCtrl.getOneThing); // Renvoie la sauce avec l'ID f
 // Met à jour la sauce avec l'identifiant fourni. Si une image est téléchargée, capturez-la et mettez à jour l'imageURL des sauces. 
 //Si aucun fichier n'est fourni, les détails de la sauce figurent directement dans le corps de la demande(req.body.name,req.body.heat etc).
 //Si un fichier est fourni, la sauce avec chaîne est en req.body.sauce.
-router.put('/:id', auth, product_auth, multer, stuffCtrl.modifyThing);
+router.put('/:id', auth, multer, stuffCtrl.modifyThing);
 
-router.delete('/:id', auth, product_auth, stuffCtrl.deleteThing); // Supprime la sauce avec l'ID fourni.
+router.delete('/:id', auth, stuffCtrl.deleteThing); // Supprime la sauce avec l'ID fourni.
 
 // Définit le statut "j'aime" pour userID fourni.
 //Si j'aime = 1,l'utilisateur aime la sauce. Si j'aime = 0,l'utilisateur annule ce qu'il aime ou ce qu'il n'aime pas. Si j'aime =-1, l'utilisateur n'aime pas la sauce.
