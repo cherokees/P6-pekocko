@@ -4,9 +4,9 @@ const fs = require('fs');
 
 // Creation d'une sauce
 
-exports.createThing = (req, res, next) => {
+exports.createSauce = (req, res, next) => {
     const thingObject = JSON.parse(req.body.sauce); //Récupération du coprs de la requete
-    delete thingObject._id; // Supression de l'ID générer automatiquement
+    delete thingObject._id; // Supression d'une ID envoyé par erreur 
     const thing = new Thing({ // Creation d'un model de sauce
         ...thingObject,
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
@@ -18,7 +18,7 @@ exports.createThing = (req, res, next) => {
 
 // Recuperation d'une sauce avec son Id
 
-exports.getOneThing = (req, res, next) => {
+exports.getOneSauce = (req, res, next) => {
     Thing.findOne({    // recherche d'un element en fonction des paramètres utilisés
         _id: req.params.id  // paramètre Id de la sauce
     }).then(
@@ -34,25 +34,7 @@ exports.getOneThing = (req, res, next) => {
     );
 };
 
-// //recuperation de toutes les sauces
-
-// exports.getAllSauces = (req, res, next) => {
-//     Sauces.find().then( // recherche de toutes les information des la BDD
-//         (sauces) => { // si information trouvées
-//             res.status(200).json(sauces); // retour des informations en objets
-//         }
-//     ).catch(  // si pas de sauces trouvées
-//         (error) => {
-//             res.status(400).json({
-//                 error: error
-//             });
-//         }
-//     );
-// };
-
-// Modifiction d'une sauce
-
-exports.modifyThing = (req, res, next) => {
+exports.modifySauce = (req, res, next) => {
     let updatedThing;
 
     // Vérification d'une nouvelle image dans la requete
@@ -102,7 +84,7 @@ exports.modifyThing = (req, res, next) => {
 };
 
 // Supression d'une sauce via son ID
-exports.deleteThing = (req, res, next) => {
+exports.deleteSauce = (req, res, next) => {
     Thing.findOne({ _id: req.params.id })  // recherche d'un element en fonction des paramètres utilisés
         .then(thing => {   // si la sauce est trouvée
 
@@ -117,8 +99,8 @@ exports.deleteThing = (req, res, next) => {
 };
 
 //recupération de toutes les sauces
-exports.getAllThing = (req, res, next) => {
-    Thing.find().then( // recherche de toutes les information dans la BDD
+exports.getAllSauces = (req, res, next) => {
+    Thing.find().then( // recherche de toutes les informations dans la BDD
         (thing) => { // si information trouvées
             res.status(200).json(thing); // retour des informations en objets
         }
